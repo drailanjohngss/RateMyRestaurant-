@@ -31,7 +31,7 @@
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
         <a class="navbar-brand" href="#">Rate My Restaurant</a>
-            <?php if(empty($user)) : ?>
+            <?php if(empty($getUser)) : ?>
                 <a class="btn btn-danger" href="/login">Sign In</a>
             <?php else : ?>
                 <a class="btn btn-primary" href="/logout">Logout</a>
