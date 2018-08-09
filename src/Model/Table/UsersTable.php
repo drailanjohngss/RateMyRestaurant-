@@ -95,6 +95,11 @@ class UsersTable extends Table
             ->requirePresence('password', 'create')
             ->notEmpty('password');
 
+        $validator
+            ->scalar('address')
+            ->requirePresence('address', 'create')
+            ->notEmpty('address');
+
         return $validator;
     }
 

@@ -14,6 +14,7 @@
     <?= $this->Html->css('bootstrap.min.css') ?>
     <!-- Custom fonts for this template -->
     <?= $this->Html->css('font-awesome.css') ?>
+    <?= $this->Html->css('style.css') ?>
     <?= $this->Html->css('simple-line-icons.css') ?>
 
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
@@ -30,7 +31,11 @@
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
         <a class="navbar-brand" href="#">Rate My Restaurant</a>
-        <a class="btn btn-danger" href="#">Sign In</a>
+            <?php if(empty($user)) : ?>
+                <a class="btn btn-danger" href="/login">Sign In</a>
+            <?php else : ?>
+                <a class="btn btn-primary" href="/logout">Logout</a>
+            <?php endif ?>
       </div>
     </nav>
 

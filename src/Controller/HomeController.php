@@ -18,8 +18,15 @@ class HomeController extends AppController
      */
     public function index()
     {
-          $this->viewBuilder()->setLayout('home');
+        $this->viewBuilder()->setLayout('home');
+        $user = NULL;
+        if($this->loginUser) {
+            $user = $this->loginUser;
+        } else {
+            $user = NULL;
+        }
 
+        $this->set(compact('user'));
     }
 
 }
