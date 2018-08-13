@@ -18,6 +18,17 @@ class RestaurantsController extends AppController
         parent::beforeFilter($event);
         $this->viewBuilder()->setLayout('default');
     }
+
+    public function isAuthorized($user = null)
+    {
+       if($this->loginUser['role_id'] == PARENT::ADMIN) {
+           return true;
+       } else {
+           return false;
+       }
+
+    }
+
     /**
      * Index method
      *

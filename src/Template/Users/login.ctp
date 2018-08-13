@@ -12,6 +12,7 @@
                             <h3 class="mb-0">Login</h3>
                         </div>
                         <div class="card-body">
+                            <?= $this->Flash->render(); ?>
                             <form class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
                                 <div class="form-group">
                                     <?= $this->Form->control('email', [

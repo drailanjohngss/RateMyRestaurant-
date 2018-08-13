@@ -13,6 +13,15 @@ use App\Controller\AppController;
  */
 class UsersController extends AppController
 {
+    public function isAuthorized($user = null)
+    {
+       if($this->loginUser['role_id'] == PARENT::ADMIN) {
+           return true;
+       } else {
+           return false;
+       }
+
+    }
 
     public function beforeFilter(Event $event)
     {

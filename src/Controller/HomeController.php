@@ -25,6 +25,11 @@ class HomeController extends AppController
      */
     public function index()
     {
+        if($this->loginUser){
+            if($this->loginUser['role_id'] == PARENT::ADMIN){
+                return $this->redirect(['controller' => 'Admin', 'action' => 'index']);
+            }
+        }
         $this->viewBuilder()->setLayout('home');
         $getUser = NULL;
         if($this->loginUser) {
@@ -37,7 +42,7 @@ class HomeController extends AppController
     }
 
     public function restricted() {
-    
+        $this->viewBuilder()->setLayout('restricted');
     }
 
 }
