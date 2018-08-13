@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Restaurants Controller
@@ -12,7 +13,11 @@ use App\Controller\AppController;
  */
 class RestaurantsController extends AppController
 {
-
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->viewBuilder()->setLayout('default');
+    }
     /**
      * Index method
      *

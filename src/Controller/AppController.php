@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Routing\Router;
 
 /**
  * Application Controller
@@ -27,6 +28,8 @@ use Cake\Event\Event;
  */
 class AppController extends Controller
 {
+
+    const ADMIN = 1;
 
     /**
      * Initialization hook method.
@@ -62,12 +65,20 @@ class AppController extends Controller
            //use isAuthorized in Controllers
           'authorize' => ['Controller'],
            // If unauthorized, return them to page they were just on
-          'unauthorizedRedirect' => $this->referer()
+          'unauthorizedRedirect' => ['controller' => 'Home', 'action' => 'restricted']
       ]);
 
       // Allow the display action so our PagesController
       // continues to work. Also enable the read only actions.
-    $this->Auth->allow(['display', 'view', 'index']);
+      $allowed = array('Users' => array('login', 'register'));
+      		if ($this->loginUser) {
+      			return;
+      		}
+      		foreach ($allowed as $controller => $actions) {
+      			if ($this->name === $controller && in_array($this->request->action, $actions)) {
+      				return $this->redirect(['controller' => 'Home', 'action' => 'restricted']);
+      			}
+      		}
 
         /*
          * Enable the following component for recommended CakePHP security settings.
@@ -78,6 +89,11 @@ class AppController extends Controller
         $getUser = $this->Auth->user();
         if($getUser) {
             $this->loginUser = $getUser;
+            $this->set('loginUser', $this->loginUser );
         }
+
+        $getAction = Router::url($this->here);
+        $this->set('getAction', $getAction);
     }
+
 }

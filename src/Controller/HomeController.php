@@ -2,14 +2,21 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
- * Ratings Controller
+ * Home Controller
  *
  * Display the Home Page
  */
 class HomeController extends AppController
 {
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Auth->allow(['index', 'restricted']);
+    }
 
     /**
      * Index method
@@ -27,6 +34,10 @@ class HomeController extends AppController
         }
 
         $this->set(compact('getUser'));
+    }
+
+    public function restricted() {
+        die('pota');
     }
 
 }

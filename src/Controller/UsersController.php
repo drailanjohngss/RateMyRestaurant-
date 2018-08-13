@@ -13,12 +13,28 @@ use App\Controller\AppController;
  */
 class UsersController extends AppController
 {
+
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
         $this->viewBuilder()->setLayout('home');
         $this->Auth->allow(['logout', 'add']);
+
+        if($this->loginUser) {
+            $this->Auth->deny(['add']);
+        }
+
     }
+
+    public function isAuthorized($user = null)
+   {
+       if($this->request->getParam('login')) {
+           return false;
+       }
+       if ($user['role_id'] !== 1) //admin privileges
+           return false;
+
+   }
 
     public function login()
     {
@@ -26,6 +42,10 @@ class UsersController extends AppController
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
+                // redirect Admin user
+                if($user['role_id'] == PARENT::ADMIN) {
+                    return $this->redirect(['controller' => 'Admin', 'action' => 'index']);
+                }
                 return $this->redirect($this->Auth->redirectUrl());
             }
             $this->Flash->error('Your username or password is incorrect.');
@@ -45,8 +65,8 @@ class UsersController extends AppController
      */
     public function index()
     {
+        $this->viewBuilder()->setLayout('default');
         $users = $this->paginate($this->Users);
-
         $this->set(compact('users'));
     }
 
@@ -130,4 +150,5 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
 }

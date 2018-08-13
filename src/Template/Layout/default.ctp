@@ -4,88 +4,189 @@
   <head>
 
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>RateMyRestaurant</title>
+    <title>Rate MY Restaurant - Admin Dashboard</title>
 
-    <!-- Bootstrap core CSS -->
+    <!-- Bootstrap core CSS-->
     <?= $this->Html->css('bootstrap.min.css') ?>
-    <!-- Custom fonts for this template -->
-    <?= $this->Html->css('font-awesome.css') ?>
-    <?= $this->Html->css('simple-line-icons.css') ?>
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <!-- Custom fonts for this template-->
+    <?= $this->Html->css('/admin/vendor/fontawesome-free/css/all.min.css') ?>
 
-    <!-- Custom styles for this template -->
-    <?= $this->Html->css('landing-page.css') ?>
+    <!-- Page level plugin CSS-->
+    <?= $this->Html->css('/admin/vendor/datatables/dataTables.bootstrap4.css') ?>
 
+    <!-- Custom styles for this template-->
+    <?= $this->Html->css('/admin/css/sb-admin.css') ?>
 
   </head>
 
-  <body>
+  <body id="page-top">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-light bg-light static-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Rate My Restaurant</a>
-        <a class="btn btn-danger" href="#">Sign In</a>
-      </div>
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+      <a class="navbar-brand mr-1" href="index.html">Rate My Restaurant Admin</a>
+
+      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Navbar Search -->
+      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Navbar -->
+      <ul class="navbar-nav ml-auto ml-md-0">
+        <li class="nav-item dropdown no-arrow">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user-circle fa-fw"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <a class="dropdown-item" href="#"><?= $loginUser['first_name'] ?></a>
+            <a class="dropdown-item" href="#">Activity Log</a>
+            <div class="dropdown-divider"></div>
+            <!-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a> -->
+            <?= $this->Html->link('Logout', '/logout', [
+                'class' => 'dropdown-item',
+                'data-toggle' => 'modal',
+                'data-target' => '#logoutModal'
+                ]) ?>
+          </div>
+        </li>
+      </ul>
+
     </nav>
 
-    <?= $this->fetch('content') ?>
+    <div id="wrapper">
 
-    <!-- Footer -->
-    <footer class="footer bg-light">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-            <ul class="list-inline mb-2">
-              <li class="list-inline-item">
-                <a href="#">About</a>
-              </li>
-              <li class="list-inline-item">&sdot;</li>
-              <li class="list-inline-item">
-                <a href="#">Contact</a>
-              </li>
-              <li class="list-inline-item">&sdot;</li>
-              <li class="list-inline-item">
-                <a href="#">Terms of Use</a>
-              </li>
-              <li class="list-inline-item">&sdot;</li>
-              <li class="list-inline-item">
-                <a href="#">Privacy Policy</a>
-              </li>
-            </ul>
-            <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2018. All Rights Reserved.</p>
+      <!-- Sidebar -->
+      <ul class="sidebar navbar-nav">
+        <li class="nav-item <?= $getAction == '/admin' ? 'active' : '' ?>">
+            <?= $this->Html->link('<i class="fas fa-fw fa-tachometer-alt"></i><span>Dashboard</span>',
+            [
+                'controller' => 'Admin',
+                'action' => 'index'
+            ],
+            [
+                'escape' => false,
+                'class' => 'nav-link'
+            ]
+            ) ?>
+          </a>
+        </li>
+        <li class="nav-item <?= $getAction == '/restaurants/add' ? 'active' : '' ?>">
+            <?= $this->Html->link('<i class="fas fa-fw fa-chart-area"></i><span>Add Restaurant</span>',
+            [
+                'controller' => 'Restaurants',
+                'action' => 'add'
+            ],
+            [
+                'escape' => false,
+                'class' => 'nav-link'
+            ]
+            ) ?>
+        </li>
+        <li class="nav-item <?= $getAction == '/restaurants' ? 'active' : '' ?>">
+            <?= $this->Html->link('<i class="fas fa-fw fa-table"></i><span>View Restaurant</span>',
+            [
+                'controller' => 'Restaurants',
+                'action' => 'index'
+            ],
+            [
+                'escape' => false,
+                'class' => 'nav-link'
+            ]
+            ) ?>
+        </li>
+        <li class="nav-item <?= $getAction == '/users' ? 'active' : '' ?>">
+            <?= $this->Html->link('<i class="fas fa-fw fa-table"></i><span>Users</span>',
+            [
+                'controller' => 'Users',
+                'action' => 'index'
+            ],
+            [
+                'escape' => false,
+                'class' => 'nav-link'
+            ]
+            ) ?>
+        </li>
+      </ul>
+
+      <div id="content-wrapper">
+
+        <div class="container-fluid">
+
+        <?= $this->fetch('content') ?>
+
+        </div>
+        <!-- /.container-fluid -->
+
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright © RateMyRestaurant 2018</span>
+            </div>
           </div>
-          <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
-            <ul class="list-inline mb-0">
-              <li class="list-inline-item mr-3">
-                <a href="#">
-                  <i class="fa fa-facebook fa-2x fa-fw"></i>
-                </a>
-              </li>
-              <li class="list-inline-item mr-3">
-                <a href="#">
-                  <i class="fa fa-twitter fa-2x fa-fw"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-instagram fa-2x fa-fw"></i>
-                </a>
-              </li>
-            </ul>
+        </footer>
+
+      </div>
+      <!-- /.content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <?= $this->Html->link('Logout', '/logout', ['class' => 'btn btn-primary']) ?>
           </div>
         </div>
       </div>
-    </footer>
+    </div>
 
-    <!-- Bootstrap core JavaScript -->
-    <?= $this->Html->script('jquery/jquery.min.js') ?>
-    <?= $this->Html->script('bootstrap.bundle.min.js') ?>
+    <!-- Bootstrap core JavaScript-->
+    <?= $this->Html->script('/admin/vendor/jquery/jquery.min.js') ?>
+    <?= $this->Html->script('/admin/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>
+    <!-- Core plugin JavaScript-->
+    <?= $this->Html->script('/admin/vendor/jquery-easing/jquery.easing.min.js') ?>
+
+    <!-- Page level plugin JavaScript-->
+    <?= $this->Html->script('/admin/vendor/chart.js/Chart.min.js') ?>
+    <?= $this->Html->script('/admin/vendor/datatables/jquery.dataTables.js') ?>
+    <?= $this->Html->script('/admin/vendor/datatables/dataTables.bootstrap4.js') ?>
+    <!-- Custom scripts for all pages-->
+    <?= $this->Html->script('/admin/js/sb-admin.min.js') ?>
+    <!-- Demo scripts for this page-->
+    <?= $this->Html->script('/admin/js/demo/datatables-demo.js') ?>
+    <?= $this->Html->script('/admin/js/demo/chart-area-demo.js') ?>
 
   </body>
 

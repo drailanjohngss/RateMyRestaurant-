@@ -2,7 +2,6 @@
 <html lang="en">
 
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -21,8 +20,6 @@
 
     <!-- Custom styles for this template -->
     <?= $this->Html->css('landing-page.css') ?>
-
-
   </head>
 
   <body>
@@ -30,11 +27,12 @@
     <!-- Navigation -->
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
-        <a class="navbar-brand" href="#">Rate My Restaurant</a>
+        <?= $this->Html->link('Rate My Restaurant','/', ['class' => 'navbar-brand']); ?>
+
             <?php if(empty($getUser)) : ?>
-                <a class="btn btn-danger" href="/login">Sign In</a>
+                <?= $this->Html->link('Sign in', '/login', ['class' => 'btn btn-danger']) ?>
             <?php else : ?>
-                <a class="btn btn-primary" href="/logout">Logout</a>
+                <?= $this->Html->link('Logout', '/logout', ['class' => 'btn btn-primary']) ?>
             <?php endif ?>
       </div>
     </nav>
@@ -48,19 +46,19 @@
           <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
             <ul class="list-inline mb-2">
               <li class="list-inline-item">
-                <a href="#">About</a>
+                <?= $this->Html->link('About','#'); ?>
               </li>
               <li class="list-inline-item">&sdot;</li>
               <li class="list-inline-item">
-                <a href="#">Contact</a>
+                <?= $this->Html->link('Contact','#'); ?>
               </li>
               <li class="list-inline-item">&sdot;</li>
               <li class="list-inline-item">
-                <a href="#">Terms of Use</a>
+                <?= $this->Html->link('Terms of Use','#'); ?>
               </li>
               <li class="list-inline-item">&sdot;</li>
               <li class="list-inline-item">
-                <a href="#">Privacy Policy</a>
+                <?= $this->Html->link('Privacy Policy','#'); ?>
               </li>
             </ul>
             <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2018. All Rights Reserved.</p>
