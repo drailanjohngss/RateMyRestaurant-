@@ -68,18 +68,6 @@ class AppController extends Controller
           'unauthorizedRedirect' => ['controller' => 'Home', 'action' => 'restricted']
       ]);
 
-      // Allow the display action so our PagesController
-      // continues to work. Also enable the read only actions.
-      $allowed = array('Users' => array('login', 'register'));
-      		if ($this->loginUser) {
-      			return;
-      		}
-      		foreach ($allowed as $controller => $actions) {
-      			if ($this->name === $controller && in_array($this->request->action, $actions)) {
-      				return $this->redirect(['controller' => 'Home', 'action' => 'restricted']);
-      			}
-      		}
-
         /*
          * Enable the following component for recommended CakePHP security settings.
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html

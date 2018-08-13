@@ -18,26 +18,17 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
         $this->viewBuilder()->setLayout('home');
-        $this->Auth->allow(['logout', 'add']);
-
-        if($this->loginUser) {
-            $this->Auth->deny(['add']);
-        }
-
+        $this->Auth->allow(['logout', 'add', 'login']);
     }
-
-    public function isAuthorized($user = null)
-   {
-       if($this->request->getParam('login')) {
-           return false;
-       }
-       if ($user['role_id'] !== 1) //admin privileges
-           return false;
-
-   }
 
     public function login()
     {
+        if($this->loginUser){
+            if($this->loginUser['role_id'] == PARENT::ADMIN){
+                return $this->redirect(['controller' => 'Admin', 'action' => 'index']);
+            }
+            return $this->redirect($this->Auth->redirectUrl());
+        }
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
@@ -93,6 +84,12 @@ class UsersController extends AppController
      */
     public function add()
     {
+        if($this->loginUser){
+            if($this->loginUser['role_id'] == PARENT::ADMIN){
+                return $this->redirect(['controller' => 'Admin', 'action' => 'index']);
+            }
+            return $this->redirect($this->Auth->redirectUrl());
+        }
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());

@@ -37,7 +37,7 @@ class HomeController extends AppController
     }
 
     public function restricted() {
-        die('pota');
+    
     }
 
 }
