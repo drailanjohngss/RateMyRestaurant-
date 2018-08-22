@@ -16,6 +16,7 @@ class HomeController extends AppController
     {
         parent::beforeFilter($event);
         $this->Auth->allow(['index', 'restricted']);
+        $this->loadModel('Restaurants');
     }
 
     /**
@@ -37,8 +38,10 @@ class HomeController extends AppController
         } else {
             $getUser = NULL;
         }
+        $restaurants = $this->paginate($this->Restaurants);
 
-        $this->set(compact('getUser'));
+
+        $this->set(compact('getUser', 'restaurants'));
     }
 
     public function restricted() {
