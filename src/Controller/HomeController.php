@@ -3,6 +3,9 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\ElasticSearch\IndexRegistry;
+
+$users = IndexRegistry::get('Users');
 
 /**
  * Home Controller
@@ -16,6 +19,7 @@ class HomeController extends AppController
     {
         parent::beforeFilter($event);
         $this->Auth->allow(['index', 'restricted']);
+        $this->loadModel('Users','Elastic');
     }
 
     /**
@@ -25,12 +29,15 @@ class HomeController extends AppController
      */
     public function index()
     {
+        $this->viewBuilder()->setLayout('home');
         if($this->loginUser){
             if($this->loginUser['role_id'] == PARENT::ADMIN){
                 return $this->redirect(['controller' => 'Admin', 'action' => 'index']);
             }
         }
-        $this->viewBuilder()->setLayout('home');
+         $users = $this->Users->find();
+        
+
         $getUser = NULL;
         if($this->loginUser) {
             $getUser = $this->loginUser;
@@ -38,7 +45,7 @@ class HomeController extends AppController
             $getUser = NULL;
         }
 
-        $this->set(compact('getUser'));
+        $this->set(compact('getUser', 'users'));
     }
 
     public function restricted() {

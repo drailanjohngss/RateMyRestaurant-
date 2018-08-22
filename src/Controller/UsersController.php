@@ -3,6 +3,10 @@ namespace App\Controller;
 
 use Cake\Event\Event;
 use App\Controller\AppController;
+use Cake\ElasticSearch\TypeRegistry;
+
+
+$users = TypeRegistry::get('Users');
 
 /**
  * Users Controller
@@ -28,6 +32,8 @@ class UsersController extends AppController
         parent::beforeFilter($event);
         $this->viewBuilder()->setLayout('home');
         $this->Auth->allow(['logout', 'add', 'login']);
+        // $this->loadModel('Users', 'Elastic');
+
     }
 
     public function login()
@@ -55,6 +61,7 @@ class UsersController extends AppController
     public function logout()
     {
         $this->Flash->success('You are now logged out.');
+        $this->request->session()->destroy();
         return $this->redirect($this->Auth->logout());
     }
 
@@ -99,7 +106,7 @@ class UsersController extends AppController
             }
             return $this->redirect($this->Auth->redirectUrl());
         }
-        $user = $this->Users->newEntity();
+        $users = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {

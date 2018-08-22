@@ -43,6 +43,7 @@ use Cake\Log\Log;
 use Cake\Mailer\Email;
 use Cake\Utility\Inflector;
 use Cake\Utility\Security;
+use Cake\ElasticSearch\Plugin as ElasticSearchPlugin;
 
 /**
  * Uncomment block of code below if you want to use `.env` file during development.
@@ -78,7 +79,7 @@ try {
  * shared configuration.
  */
 //Configure::load('app_local', 'default');
-
+$this->addPlugin(ElasticSearchPlugin::class);
 /*
  * When debug = true the metadata cache should only last
  * for a short time.

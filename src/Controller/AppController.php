@@ -43,7 +43,7 @@ class AppController extends Controller
     public function initialize()
     {
         parent::initialize();
-
+        $this->session = $this->request->session();
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
         ]);
