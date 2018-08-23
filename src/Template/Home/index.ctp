@@ -27,7 +27,7 @@
 <?php else : ?>
 
     <div class="container">
-        <h4 class="mt50">Restaurants that you rated.</h4>
+        <h4 class="mt50">Most Recent Restaurants</h4>
         <div class="row mt50">
             <?php foreach($restaurants as $r) :?>
                 <?= $this->element('Cards/ListCards',

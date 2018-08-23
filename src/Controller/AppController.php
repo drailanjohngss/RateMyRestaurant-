@@ -80,10 +80,13 @@ class AppController extends Controller
             $this->loginUser = $getUser;
             $this->set('loginUser', $this->loginUser );
         }
+    
 
         $getAction = Router::url($this->here);
         $this->set('getAction', $getAction);
         $this->session = $this->request->session();
+
+
     }
 
 }

@@ -29,7 +29,7 @@
       <div class="container">
         <?= $this->Html->link('Rate My Restaurant','/', ['class' => 'navbar-brand']); ?>
 
-            <?php if(empty($getUser)) : ?>
+            <?php if(empty($loginUser)) : ?>
                 <?= $this->Html->link('Sign in', '/login', ['class' => 'btn btn-danger']) ?>
             <?php else : ?>
                 <?= $this->Html->link('Logout', '/logout', ['class' => 'btn btn-primary']) ?>

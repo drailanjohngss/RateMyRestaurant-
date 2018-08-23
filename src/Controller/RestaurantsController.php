@@ -16,7 +16,7 @@ class RestaurantsController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->viewBuilder()->setLayout('default');
+    
         $this->loadModel('Uploads');
     }
 
@@ -24,10 +24,9 @@ class RestaurantsController extends AppController
     {
        if($this->loginUser['role_id'] == PARENT::ADMIN) {
            return true;
-       } else {
-           return false;
+       } else if ($this->request->getParam('action') == 'view'){
+           return true;
        }
-
     }
 
     /**
@@ -37,6 +36,7 @@ class RestaurantsController extends AppController
      */
     public function index()
     {
+
         $restaurants = $this->paginate($this->Restaurants);
 
         $this->set(compact('restaurants'));
@@ -51,6 +51,7 @@ class RestaurantsController extends AppController
      */
     public function view($id = null)
     {
+        $this->viewBuilder()->setLayout('home');
         $restaurant = $this->Restaurants->get($id, [
             'contain' => []
         ]);

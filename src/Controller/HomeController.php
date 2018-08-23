@@ -27,6 +27,7 @@ class HomeController extends AppController
      */
     public function index()
     {
+
         if($this->loginUser){
             if($this->loginUser['role_id'] == PARENT::ADMIN){
                 return $this->redirect(['controller' => 'Admin', 'action' => 'index']);
@@ -40,7 +41,6 @@ class HomeController extends AppController
             $getUser = NULL;
         }
         $restaurants = $this->Restaurants->Uploads->find()->contain('Restaurants');
-
 
         $this->set(compact('getUser', 'restaurants'));
     }
