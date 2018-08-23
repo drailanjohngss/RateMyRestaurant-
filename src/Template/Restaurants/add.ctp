@@ -5,7 +5,7 @@
  */
 ?>
 
-<?= $this->Form->create($restaurant, ['type' => file]) ?>
+<?= $this->Form->create($restaurant, ['type' => 'file']) ?>
     <div class="container-fluid bg-light py-3 body-bg">
         <div class="row">
             <div class="col-md-8 mx-auto">
@@ -62,6 +62,11 @@
                                     'label' => 'Longitude'
                                 ]); ?>
                             </div>
+                            <div class="form-group has-success">
+                                <label> Upload Image </label>
+                                <?= $this->Form->control('photo', ['type' => 'file', 'onchange' => 'readURL(this);', 'class' => 'fileUploadInput ', 'label' => false]); ?>
+                            </div>
+                            <img id="blah" src="http://placehold.it/180" alt="your image" class="imagePrev" />
                             <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-lg btn-primary btn-block']) ?>
                         </fieldset>
                     </div>

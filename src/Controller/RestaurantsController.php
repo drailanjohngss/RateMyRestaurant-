@@ -17,6 +17,7 @@ class RestaurantsController extends AppController
     {
         parent::beforeFilter($event);
         $this->viewBuilder()->setLayout('default');
+        $this->loadModel('Uploads');
     }
 
     public function isAuthorized($user = null)
@@ -65,11 +66,19 @@ class RestaurantsController extends AppController
     public function add()
     {
         $restaurant = $this->Restaurants->newEntity();
+        $uploads = $this->Uploads->newEntity();
         if ($this->request->is('post')) {
             $restaurant = $this->Restaurants->patchEntity($restaurant, $this->request->getData());
-            if ($this->Restaurants->save($restaurant)) {
-                $this->Flash->success(__('The restaurant has been saved.'));
 
+            if ($this->Restaurants->save($restaurant)) {
+                $lastId = $restaurant->id;
+                $this->session->write('res_id', $lastId);
+                $this->Flash->success(__('The restaurant has been saved.'));
+                $uploads = $this->Uploads->patchEntity($uploads, [
+                    'restaurant_id' => $lastId,
+                    'photo' => $this->request->getData('photo')
+                ]);
+                $this->Uploads->save($uploads);
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The restaurant could not be saved. Please, try again.'));

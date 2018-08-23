@@ -31,6 +31,7 @@ class Restaurant extends Entity
      * @var array
      */
     protected $_accessible = [
+
         'name' => true,
         'menu_desc' => true,
         'address' => true,

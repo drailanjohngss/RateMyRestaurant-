@@ -1,9 +1,15 @@
+<?php
+ // remove webroot/ on the url
+ $src  = str_replace('webroot/', '', $elImageSrc);
+?>
+
+
 <div class="col-md-4">
     <figure class="card card-product">
-        <div class="img-wrap"><img src="https://s9.postimg.org/tupxkvfj3/image.jpg"></div>
+        <div class="img-wrap"><img src="<?= $src ?>"></div>
         <figcaption class="info-wrap">
                 <h4 class="title"><?= $elName ?></h4>
-                <p class="desc"><?= $elDescription ?></p>
+                <p class="desc"><?= $elDescription ?> <br /><?= $elAddress ?></p>
                 <div class="rating-wrap">
                     <div class="label-rating">132 reviews</div>
                     <div class="label-rating">5.0 rating </div>

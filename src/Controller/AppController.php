@@ -66,6 +66,7 @@ class AppController extends Controller
           'authorize' => ['Controller'],
            // If unauthorized, return them to page they were just on
           'unauthorizedRedirect' => ['controller' => 'Home', 'action' => 'restricted']
+
       ]);
 
         /*
@@ -82,6 +83,7 @@ class AppController extends Controller
 
         $getAction = Router::url($this->here);
         $this->set('getAction', $getAction);
+        $this->session = $this->request->session();
     }
 
 }

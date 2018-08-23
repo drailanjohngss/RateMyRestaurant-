@@ -7,10 +7,12 @@
     position: relative;
     height: 220px;
     text-align: center;
+
 }
 .card-product .img-wrap img {
-    max-height: 100%;
     max-width: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 .card-product .info-wrap {

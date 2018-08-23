@@ -17,6 +17,7 @@ class HomeController extends AppController
         parent::beforeFilter($event);
         $this->Auth->allow(['index', 'restricted']);
         $this->loadModel('Restaurants');
+        $this->loadModel('Uploads');
     }
 
     /**
@@ -38,7 +39,7 @@ class HomeController extends AppController
         } else {
             $getUser = NULL;
         }
-        $restaurants = $this->paginate($this->Restaurants);
+        $restaurants = $this->Restaurants->Uploads->find()->contain('Restaurants');
 
 
         $this->set(compact('getUser', 'restaurants'));

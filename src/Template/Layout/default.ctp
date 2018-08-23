@@ -13,6 +13,8 @@
 
     <!-- Bootstrap core CSS-->
     <?= $this->Html->css('bootstrap.min.css') ?>
+    <!-- Default css -->
+    <?= $this->Html->css('admin') ?>
 
     <!-- Custom fonts for this template-->
     <?= $this->Html->css('/admin/vendor/fontawesome-free/css/all.min.css') ?>
@@ -172,6 +174,7 @@
       </div>
     </div>
 
+    <?= $this->Html->script('admin.js') ?>
     <!-- Bootstrap core JavaScript-->
     <?= $this->Html->script('/admin/vendor/jquery/jquery.min.js') ?>
     <?= $this->Html->script('/admin/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>

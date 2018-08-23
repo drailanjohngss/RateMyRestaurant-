@@ -35,6 +35,7 @@ class RestaurantsTable extends Table
      */
     public function initialize(array $config)
     {
+        // $this->session = $this->request->session();
         parent::initialize($config);
 
         $this->setTable('restaurants');
@@ -52,9 +53,10 @@ class RestaurantsTable extends Table
         $this->hasMany('Reviews', [
             'foreignKey' => 'restaurant_id'
         ]);
-        $this->addBehavior('Josegonzalez/Upload.Upload', [
-            'photo',
+        $this->hasMany('Uploads', [
+            'foreignKey' => 'restaurant_id'
         ]);
+
     }
 
     /**

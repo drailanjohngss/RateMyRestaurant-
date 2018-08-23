@@ -30,13 +30,15 @@
         <h4 class="mt50">Restaurants that you rated.</h4>
         <div class="row mt50">
             <?php foreach($restaurants as $r) :?>
-            <?= $this->element('Cards/ListCards',
-                [
-                    'elName' => $r->name,
-                    'elDescription' => $r->res_description,
-                ]
-            ) ?>
-        <?php endforeach ?>
+                <?= $this->element('Cards/ListCards',
+                    [
+                        'elName' => $r->restaurant->name,
+                        'elDescription' => $r->restaurant->res_description,
+                        'elAddress' => $r->restaurant->address,
+                        'elImageSrc' => $r->dir.$r->photo,
+                    ]
+                ) ?>
+            <?php endforeach ?>
         </div>
     </div>
 <?php endif ?>
