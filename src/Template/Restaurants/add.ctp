@@ -5,7 +5,7 @@
  */
 ?>
 
-<?= $this->Form->create($restaurant) ?>
+<?= $this->Form->create($restaurant, ['type' => file]) ?>
     <div class="container-fluid bg-light py-3 body-bg">
         <div class="row">
             <div class="col-md-8 mx-auto">

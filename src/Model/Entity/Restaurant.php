@@ -39,6 +39,8 @@ class Restaurant extends Entity
         'res_description' => true,
         'lat' => true,
         'lng' => true,
+        'photo' => true,
+        'dir' => true,
         'created' => true,
         'modified' => true
     ];

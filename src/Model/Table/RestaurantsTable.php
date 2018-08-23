@@ -52,6 +52,9 @@ class RestaurantsTable extends Table
         $this->hasMany('Reviews', [
             'foreignKey' => 'restaurant_id'
         ]);
+        $this->addBehavior('Josegonzalez/Upload.Upload', [
+            'photo',
+        ]);
     }
 
     /**

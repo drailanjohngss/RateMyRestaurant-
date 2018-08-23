@@ -51,6 +51,7 @@ class UsersTable extends Table
         $this->hasMany('Reviews', [
             'foreignKey' => 'user_id'
         ]);
+        
     }
 
     /**
