@@ -75,7 +75,8 @@ class AppController extends Controller
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
-
+        $csrf = $this->request->getCookie('csrfToken');
+        $this->set('csrf', $csrf);
         $getUser = $this->Auth->user();
         if($getUser) {
             $this->loginUser = $getUser;
@@ -86,6 +87,7 @@ class AppController extends Controller
         $this->set('getAction', $getAction);
         $this->session = $this->request->session();
 
+
     }
 
     public function beforeFilter(Event $event)
@@ -93,6 +95,7 @@ class AppController extends Controller
         parent::beforeFilter($event);
         $this->loadModel('Restaurants');
         $this->loadModel('Uploads');
+
     }
 
 }

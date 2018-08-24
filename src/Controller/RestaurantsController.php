@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\Controller\Component\CookieComponent;
+use Cake\Http\Cookie\Cookie;
 
 /**
  * Restaurants Controller
@@ -51,12 +53,14 @@ class RestaurantsController extends AppController
      */
     public function view($id = null)
     {
+        
+
         $this->viewBuilder()->setLayout('home');
         $restaurant = $this->Restaurants->get($id, [
             'contain' => []
         ]);
         $uploads = $this->Uploads->findByRestaurantId($id);
-        
+
         $this->set(compact('restaurant', 'uploads'));
     }
 

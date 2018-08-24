@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Event\Event;
 /**
  * Ratings Controller
  *
@@ -12,6 +12,29 @@ use App\Controller\AppController;
  */
 class RatingsController extends AppController
 {
+    public function isAuthorized($user = null)
+    {
+       if($this->loginUser['role_id'] == PARENT::ADMIN) {
+           return true;
+       } else if ($this->request->getParam('action') == 'add'){
+           return true;
+       }
+    }
+
+    public function initialize()
+    {
+        parent::initialize();
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+
+        if ($this->request->is('ajax')) {
+            $this->layout = 'ajax';
+        }
+
+    }
 
     /**
      * Index method
@@ -51,19 +74,32 @@ class RatingsController extends AppController
      */
     public function add()
     {
-        $rating = $this->Ratings->newEntity();
-        if ($this->request->is('post')) {
-            $rating = $this->Ratings->patchEntity($rating, $this->request->getData());
-            if ($this->Ratings->save($rating)) {
-                $this->Flash->success(__('The rating has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The rating could not be saved. Please, try again.'));
+        if ($this->request->is('ajax')) {
+             $this->autoRender = false;
         }
-        $users = $this->Ratings->Users->find('list', ['limit' => 200]);
-        $res = $this->Ratings->Restaurants->find('list', ['limit' => 200]);
-        $this->set(compact('rating', 'users', 'res'));
+        if ($this->request->is('post')) {
+            $rating = $this->Ratings->newEntity();
+            $rating->rating = $this->request->getData('ratings');
+            $rating->user_id = $this->loginUser['id'];
+            $rating->restaurant_id = $this->request->getData('restaurant_id');
+
+            if ($this->Ratings->save($rating)) {
+                echo 'Success';
+            }
+        }
+        // $rating = $this->Ratings->newEntity();
+        // if ($this->request->is('post')) {
+        //     $rating = $this->Ratings->patchEntity($rating, $this->request->getData());
+        //     if ($this->Ratings->save($rating)) {
+        //         $this->Flash->success(__('The rating has been saved.'));
+        //
+        //         return $this->redirect(['action' => 'index']);
+        //     }
+        //     $this->Flash->error(__('The rating could not be saved. Please, try again.'));
+        // }
+        // $users = $this->Ratings->Users->find('list', ['limit' => 200]);
+        // $res = $this->Ratings->Restaurants->find('list', ['limit' => 200]);
+        // $this->set(compact('rating', 'users', 'res'));
     }
 
     /**
