@@ -16,7 +16,7 @@ class RestaurantsController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-    
+
         $this->loadModel('Uploads');
     }
 
@@ -55,8 +55,9 @@ class RestaurantsController extends AppController
         $restaurant = $this->Restaurants->get($id, [
             'contain' => []
         ]);
-
-        $this->set('restaurant', $restaurant);
+        $uploads = $this->Uploads->findByRestaurantId($id);
+        
+        $this->set(compact('restaurant', 'uploads'));
     }
 
     /**

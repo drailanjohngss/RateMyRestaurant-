@@ -36,6 +36,7 @@
                         'elDescription' => $r->restaurant->res_description,
                         'elAddress' => $r->restaurant->address,
                         'elImageSrc' => $r->dir.$r->photo,
+                        'elId' => $r->restaurant->id,
                     ]
                 ) ?>
             <?php endforeach ?>

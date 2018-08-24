@@ -16,8 +16,8 @@ class HomeController extends AppController
     {
         parent::beforeFilter($event);
         $this->Auth->allow(['index', 'restricted']);
-        $this->loadModel('Restaurants');
-        $this->loadModel('Uploads');
+        // $this->loadModel('Restaurants');
+        // $this->loadModel('Uploads');
     }
 
     /**

@@ -31,6 +31,7 @@ class AppController extends Controller
 
     const ADMIN = 1;
 
+
     /**
      * Initialization hook method.
      *
@@ -80,13 +81,18 @@ class AppController extends Controller
             $this->loginUser = $getUser;
             $this->set('loginUser', $this->loginUser );
         }
-    
 
         $getAction = Router::url($this->here);
         $this->set('getAction', $getAction);
         $this->session = $this->request->session();
 
+    }
 
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->loadModel('Restaurants');
+        $this->loadModel('Uploads');
     }
 
 }

@@ -89,6 +89,7 @@
     <!-- Bootstrap core JavaScript -->
     <?= $this->Html->script('jquery/jquery.min.js') ?>
     <?= $this->Html->script('bootstrap.bundle.min.js') ?>
+    <?= $this->Html->script('rating') ?>
 
   </body>
 
